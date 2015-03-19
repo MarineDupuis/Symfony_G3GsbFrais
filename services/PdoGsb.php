@@ -53,7 +53,7 @@ class PdoGsb{
 */
 	public function getInfosVisiteur($login, $mdp){
                 $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur INNER JOIN user ON visiteur.login = user.login
-        where visiteur.login=:log and user.mdp=:mdp";
+        where visiteur.login=:log and user.mdp=(md5(:mdp))";
 		$stmt = PdoGsb::$monPdo->prepare($req);
                 $stmt->bindParam(':log', $login);
 		$stmt->bindParam(':mdp', $mdp);
