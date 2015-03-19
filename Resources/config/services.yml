@@ -4,4 +4,4 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
     G3_gsb_frais.pdo:
         class: G3\GsbFraisBundle\services\PdoGsb
-        arguments: ["mysql:host=localhost", "dbname=gsb_frais", "userGsb", "secret"]
+        arguments: ["mysql:host=localhost", "dbname=gsb_frais_g3", "userGsb", "secret"]
