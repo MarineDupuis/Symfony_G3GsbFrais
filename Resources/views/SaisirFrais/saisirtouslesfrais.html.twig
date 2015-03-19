@@ -1,0 +1,12 @@
+{% extends "G3GsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+{% block bloc1 %}
+ {% include 'G3GsbFraisBundle:SaisirFrais:erreurs.html.twig' with {'leserreurs':leserreursforfait} %}
+{% include 'G3GsbFraisBundle:SaisirFrais:saisirfraisforfait.html.twig' with {'lesfraisforfait':lesfraisforfait,
+'nummois':nummois,'numannee':numannee} %}
+
+{% include 'G3GsbFraisBundle:SaisirFrais:erreurs.html.twig' with {'leserreurs':leserreurshorsforfait} %}
+{% include 'G3GsbFraisBundle:SaisirFrais:saisirfraishorsforfait.html.twig' with {'lesfraishorsforfait':lesfraishorsforfait} %}
+{% endblock %}
+{% endblock %}
+
