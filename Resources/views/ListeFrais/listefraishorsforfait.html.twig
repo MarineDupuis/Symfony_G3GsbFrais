@@ -1,4 +1,5 @@
 <table class="listeLegere">
+	{% if lesfraishorsforfait is not empty %}
   	   <caption>Descriptif des éléments hors forfait -{{nbjustificatifs}} justificatifs reçus -
        </caption>
              <tr>
@@ -10,12 +11,24 @@
 		{% set date = unFrais.date%}
                 {% set libelle = unFrais.libelle%}
                 {% set montant = unFrais.montant%}
-                <tr>
-                    <td>{{date}}</td>
-                    <td>{{libelle}}</td>
-                    <td>{{montant}}</td>
-                </tr>
-           {% endfor %}  
+                {% set etat = unFrais.etat%}
+				{% if etat == 1 %}
+					<tr class="supprimer">
+						<td><span title='{{unFrais.libelleEtat}}'>{{date}}</span></td>
+						<td><span title='{{unFrais.libelleEtat}}'>{{libelle}}</span></td>
+						<td><span title='{{unFrais.libelleEtat}}'>{{montant}}</span></td>
+					</tr>
+				{% else %}				
+					<tr>
+						<td>{{date}}</td>
+						<td>{{libelle}}</td>
+						<td>{{montant}}</td>
+					</tr>
+				{% endif %}
+           {% endfor %}
+	{% else %}
+		<strong>Vous n'avez pas d'élément hors forfait pour ce mois.</strong>
+	{% endif %}
     </table>
     
  

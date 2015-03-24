@@ -15,6 +15,12 @@ namespace G3\GsbFraisBundle\services;
  * @version    1.0
  * @link       http://www.php.net/manual/fr/book.pdo.php
  */
+ 
+ 
+ 
+ 
+ 
+ 
 use PDO;
 class PdoGsb{
         private static $monPdo;
@@ -401,7 +407,51 @@ class PdoGsb{
             $stmt->execute();
             $ligne = $stmt->fetch();
             return $ligne['nb'];
-
         }
+		
+		public function majMontantFrais($lesInfosFicheFrais,$lesFraisForfait,$lesFraisHorsForfait) {// fonction créée par Julien Pulido: Modifie la valeur du montant des frais lorsque la fiche est CR ou CL
+	 /*Calcul somme des frais forfaitise */
+		$montantValide = '0.00';
+		$nb = array(0=>''); // creation tableau stockage nombre de frais forfait
+		$n=1;
+		foreach ($lesFraisForfait as $unFraisForfait) //parcours des valeurs pour les frais forfaits
+		{
+			$quantite = $unFraisForfait['quantite'];
+			$nb[$n] = $quantite; //stockage de la valeur dans le tableau
+			$n++;
+		}
+		// $nb[1] = nombre de forfait etape
+		// $nb[2] = nombre de Frais Kilométrique
+		// $nb[3] = nombre de Nuitée Hôtel
+		// $nb[4] = nombre de Repas Restaurant
+		
+		$req= "SELECT montant FROM fraisforfait ORDER BY id"; //recupere les montant de chaque frais
+		$res = PdoGsb::$monPdo->query($req);
+		$montant = $res->fetchAll();
+		$tab = array(0=>''); // creation tableau stockage nombre de frais forfait
+		$n=1;
+		foreach ($montant as $unMontant) //parcours des valeurs pour les frais
+		{
+			$prix = $unMontant['montant'];
+			$tab[$n] = $prix; //stockage de la valeur dans le tableau
+			$n++;
+		}
+		// $tab[1] = nombre de forfait etape
+		// $tab[2] = nombre de Frais Kilométrique
+		// $tab[3] = nombre de Nuitée Hôtel
+		// $tab[4] = nombre de Repas Restaurant
+		
+		$montantValide = $nb[1]* $tab[1] + $nb[2]* $tab[2] + $nb[3]* $tab[3] + $nb[4]* $tab[4]; //Calcul Somme montant forfaitise
+		
+	/* Calcul somme frais hors forfait */
+		$montantHF=0; // stockage des montants hors forfaits
+		foreach ($lesFraisHorsForfait as $unFraisHorsForfait) //parcours des valeurs pour les hors forfaits
+		{
+			$montantHF+= $unFraisHorsForfait['montant']; // somme de tout les frais Hors Forfaits
+			
+		}
+		$montantValide+= $montantHF; // Somme du montant de Frais Forfait + montant de Frais Hors Forfait
+		return $montantValide;
+	 }
 }
 ?>

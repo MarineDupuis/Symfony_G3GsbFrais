@@ -20,14 +20,9 @@
             {% endfor %}  
        </select>
       </p>
+	  <button type="submit" class="btn btn-primary">Rechercher</button>
       </div>
-      <div class="piedForm">
-      <p>
-            <input id="ok" type="submit" value="Valider" size="20" />
-            <input id="annuler" type="reset" value="Effacer" size="20" />
-      </p> 
-      </div>
-        </form>
+      </form>
  {% if AffichFrais == 'O' %}
      {% include 'G3GsbFraisBundle:ListeFrais:listefraisforfait.html.twig' with {'lesfraisforfait':lesfraisforfait,'numannee':numannee,
 'nummois':nummois,'libetat':libetat,'montantvalide':montantvalide,'datemodif':datemodif} %}
