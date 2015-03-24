@@ -64,6 +64,26 @@ class PdoGsb{
 	}
 
 /**
+ * @author DUPUIS Marine
+ * Retourne les informations d'un comptable
+ 
+ * @param $login 
+ * @param $mdp
+ * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
+*/
+ 	public function getInfosComptable($login, $mdp){
+                $req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable INNER JOIN user ON comptable.login = user.login
+        where comptable.login=:log and user.mdp=(md5(:mdp))";
+		$stmt = PdoGsb::$monPdo->prepare($req);
+                $stmt->bindParam(':log', $login);
+		$stmt->bindParam(':mdp', $mdp);
+                $stmt->execute();
+		$ligne = $stmt->fetch();
+            //    var_dump($ligne);
+		return $ligne;
+	}
+                
+/**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
  * concernées par les deux arguments
  

@@ -2,9 +2,9 @@
 {% block menu %}
     <nav>
      <div id="infosUtil">
-         <h3>
+        <h3>
             {%if(app.session.get('nom') is defined )%}
-                           Visiteur: bonjour {{app.session.get('nom')}}<br>   
+                           Visiteur : bonjour {{app.session.get('nom')}}<br>   
             {%endif%}
         </h3>
      </div>  
