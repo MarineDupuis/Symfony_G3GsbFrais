@@ -26,10 +26,12 @@ class SuivrePaiementController extends Controller
             list($nom,$prenom,$idCommercial) = explode("+", $infosUser);
             $lesFiches=$pdo->getInformationsFichesSuivi($idCommercial,$etat);
             return $this->render('G3GsbFraisBundle:SuivrePaiement:listefichesuivi.html.twig',
-            array('lesFiches'=>$lesFiches,'nom'=>$nom,'prenom'=>$prenom,'idCommercial'=>$idCommercial));
+            array('lesFiches'=>$lesFiches,'nom'=>$nom,'prenom'=>$prenom,'idCommercial'=>$idCommercial,'etat'=>$etat,'infosUser'=>$infosUser));
         }
     }
     public function AfficheDetailAction($id,$leMois){
+        $infosUser = $_REQUEST['infosUser'];
+        $etat = $_REQUEST['etat'];
         $request = $this->get('request');
         $pdo = $this->get('G3_gsb_frais.pdo');
         $lesMois=$pdo->getLesMoisDisponibles($id);
@@ -52,13 +54,13 @@ class SuivrePaiementController extends Controller
         $dateModif =  dateAnglaisVersFrancais($dateModif);
         if(empty($libEtat)){
             return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
-            array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
+            array('infosUser'=>$infosUser,'etat'=>$etat,'lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
                 'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
                     'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'E'));
         }
         else{
             return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
-            array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
+            array('infosUser'=>$infosUser,'etat'=>$etat,'lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
                 'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
                     'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'O')); 
         }

@@ -8,10 +8,23 @@
 
      {% include 'G3GsbFraisBundle:ListeFrais:listefraishorsforfait.html.twig' with {'lesfraishorsforfait':lesfraishorsforfait,
 'nbjustificatifs':nbjustificatifs} %}
+
+ <!-- Bouton qui renvois au tableau affichant toutes les notes de frais pour un etat et un utilisateur precis -->
+<form class="form-inline" action="{{path('G3_gsb_frais_suivrepaiement')}}" method="post">
+    <input type="hidden" name="infosUser" value="{{infosUser}}" /> <!--passe en parametre les informations pour le controleur-->
+    <input type="hidden" name="etat" value="{{etat}}" /> <!--passe en parametre l'etat pour le controleur-->
+    <input type="submit" class="btn btn-primary" value="Retour"><!-- envois ces informations au controleur pour le cas 'ListesUtilisateursSuivi' qui créer le tableau -->
+</form>
  {% endif %}
 
 {% if AffichFrais == 'E' %}       
     ERREUR SELECTION VISITEUR OU DATE.
+ <!-- Bouton qui renvois au tableau affichant toutes les notes de frais pour un etat et un utilisateur precis -->
+<form class="form-inline" action="{{path('G3_gsb_frais_suivrepaiement')}}" method="post">
+    <input type="hidden" name="infosUser" value="{{infosUser}}" /> <!--passe en parametre les informations pour le controleur-->
+    <input type="hidden" name="etat" value="{{etat}}" /> <!--passe en parametre l'etat pour le controleur-->
+    <input type="submit" class="btn btn-primary" value="Retour"><!-- envois ces informations au controleur pour le cas 'ListesUtilisateursSuivi' qui créer le tableau -->
+</form>
 {% endif %}
 
 {% endblock %}
