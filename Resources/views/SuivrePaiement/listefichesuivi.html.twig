@@ -1,0 +1,32 @@
+{% extends "G3GsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+{% block bloc1 %}
+
+<h2>Fiche de frais de {{nom}} {{prenom}} :    </h2>
+<table class="table table-bordered">
+  	   <caption>Listes des Fiches de frais des 12 derniers mois</caption>
+            <thead>
+             <tr>
+                <th class="date">Mois</th>
+                <th class="libelle">Date de Modification</th>
+                <th class='montant'>Montant</th>                
+                <th class='montant'>Libelle</th>                
+             </tr>
+            </thead>
+<tbody>
+{% for uneFiche in lesFiches %}
+	{% set mois = uneFiche.mois %}
+	{% set dateModif = uneFiche.dateModif %}
+	{% set montantValide = uneFiche.montantValide %}
+	{% set libEtat = uneFiche.libEtat %}
+	
+	<tr>
+		<td><a href='index.php?uc=suivrePaiement&action=detailFiche&idVisiteur={{idCommercial}}&leMois={{mois}}' title='Detail fiche de frais du {{mois}}'>{{mois}}</a></td>
+		<td><?php echo "<a href='index.php?uc=suivrePaiement&action=detailFiche&idVisiteur=$idCommercial&leMois=$mois' title='Detail fiche de frais du $mois'>$dateModif</a>"?></td>
+		<td><?php echo "<a href='index.php?uc=suivrePaiement&action=detailFiche&idVisiteur=$idCommercial&leMois=$mois' title='Detail fiche de frais du $mois'>$montantValide</a>"?></td>
+		<td><?php echo "<a href='index.php?uc=suivrePaiement&action=detailFiche&idVisiteur=$idCommercial&leMois=$mois' title='Detail fiche de frais du $mois'>$libEtat</a>"?></td>
+    </tr>
+
+
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "G3GsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+{% block bloc1 %}
+
+<h2>Suivre le paiement d'une fiche de frais</h2>
+<form class="form-inline" method="post">   
+  <div class="corpsForm">
+	  <fieldset>	 
+		<legend>Nom de l'utilisateur: </legend>
+		<select id="infosUser" name="infosUser" class="form-control">
+			{% for unVisiteur in  lesVisiteurs %}
+					{% set prenom = unVisiteur.prenom %}
+					{% set nom = unVisiteur.nom %}
+					{% set idCommercial = unVisiteur.id %}					
+					{% set infosUser = [nom, prenom, idCommercial]|join('+') %}					
+				<option value="{{idCommercial}}">{{nom}} {{prenom}}</option>  
+			{% endfor %}
+		</select>
+		<select id="etat" name="etat" class="form-control">
+			<option value="VA">Validées</option>
+			<option value="RB">Remboursées</option>
+		</select>
+		<button type="submit" class="btn btn-primary">Rechercher</button>   
+	  </fieldset>	 
+  </div>       
+</form>
+
+{% endblock %}
+{% endblock %}

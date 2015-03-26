@@ -426,8 +426,9 @@ class PdoGsb{
 		// $nb[4] = nombre de Repas Restaurant
 		
 		$req= "SELECT montant FROM fraisforfait ORDER BY id"; //recupere les montant de chaque frais
-		$res = PdoGsb::$monPdo->query($req);
-		$montant = $res->fetchAll();
+		$stmt = PdoGsb::$monPdo->prepare($req);
+		$stmt->execute();
+		$montant = $stmt->fetchAll();
 		$tab = array(0=>''); // creation tableau stockage nombre de frais forfait
 		$n=1;
 		foreach ($montant as $unMontant) //parcours des valeurs pour les frais
@@ -453,5 +454,50 @@ class PdoGsb{
 		$montantValide+= $montantHF; // Somme du montant de Frais Forfait + montant de Frais Hors Forfait
 		return $montantValide;
 	 }
+
+		public function getLesUtilisateursSuivi(){ // fonction créée par Julien Pulido: recupere la liste des utilisateurs ayant des fiches frais VA ou RB des 12 derniers mois et renvois sous forme de tableau leurs informations
+		$current_date = date('Ym');
+		$duree= $current_date - 100;   // $duree est la date maxi pour les 12 derniers mois             
+		$req="select distinct id, nom, prenom from fichefrais inner join visiteur on id = idvisiteur where idEtat = 'VA' or idEtat = 'RB' and mois > '$duree' ORDER BY nom ASC ";
+		$res = PdoGsb::$monPdo->query($req);                
+		$lesVisiteur =array();
+		$laLigne = $res->fetch();
+		while($laLigne != null)	{
+			$id = $laLigne['id'];
+			$nom = $laLigne['nom'];
+			$prenom = $laLigne['prenom'];
+			$lesVisiteur["$id"]=array(
+		     "id" => "$id",
+		     "prenom" => "$prenom",
+		     "nom" => "$nom"
+             );
+			$laLigne = $res->fetch(); 		
+		}
+		return $lesVisiteur; // retourne l'id, le prenom et le nom des utilisateurs concernes sous forme de tableau.
+	}
+	
+	public function getInformationsFichesSuivi($idCommercial,$etat){ // fonction créée par Julien Pulido: recupere les informations des fiches de frais pour un utisateur et un etat voulu
+		$current_date = date('Ym');
+		$duree= $current_date - 100; // $duree est la date maxi pour les 12 derniers mois
+		$req="select mois, dateModif, montantValide, idEtat, nom, prenom, etat.libelle as libEtat from  fichefrais inner join visiteur on visiteur.id = fichefrais.idVisiteur INNER JOIN Etat ON ficheFrais.idEtat = Etat.id where fichefrais.idvisiteur ='$idCommercial' and idEtat='$etat' and mois > '$duree' order by fichefrais.mois desc";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesFiches =array();
+		$laLigne = $res->fetch();
+		while($laLigne != null)	{
+			$mois = $laLigne['mois'];
+			$dateModif = $laLigne['dateModif'];
+			$montantValide = $laLigne['montantValide'];
+			$idEtat = $laLigne['idEtat'];
+			$libEtat = $laLigne['libEtat'];
+			$lesFiches["$mois"]=array(
+			 "mois" => "$mois",
+			 "dateModif" => "$dateModif",
+			 "montantValide" => "$montantValide",
+			 "libEtat" => "$libEtat");
+			$laLigne = $res->fetch(); 		
+		}
+		return $lesFiches;// retourne le mois, la dateModif, le montantValide et le libEtat des fiches de frais concernes sous forme de tableau.
+	}
+	 
 }
 ?>
