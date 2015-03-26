@@ -1,10 +1,6 @@
-{% extends "G3GsbFraisBundle::accueil.html.twig" %}
-{% block body %}
-{% block bloc1 %}
 
-{% include 'G3GsbFraisBundle:ListeFrais:index' with {'lesfraisforfait':lesfraisforfait,'numannee':numannee,
+
+{% include 'G3GsbFraisBundle:ListeFrais:listemois.html.twig' with {'lesfraisforfait':lesfraisforfait,'numannee':numannee,
 'nummois':nummois,'libetat':libetat,'montantvalide':montantvalide,'datemodif':datemodif} %}
 
 
-{% endblock %}
-{% endblock %}

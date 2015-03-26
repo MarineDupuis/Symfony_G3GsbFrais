@@ -25,3 +25,6 @@ G3_gsb_frais_nouveauvisiteur:
 G3_gsb_frais_suivrepaiement:
     path:     G3/suivrepaiement
     defaults: { _controller: G3GsbFraisBundle:SuivrePaiement:index }
+G3_gsb_frais_suivrepaiementdetailfiche:
+    path:     G3/suivrepaiement/{id},{leMois}
+    defaults: { _controller: G3GsbFraisBundle:SuivrePaiement:AfficheDetail }
