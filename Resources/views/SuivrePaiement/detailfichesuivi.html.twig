@@ -1,6 +1,18 @@
+{% extends "G3GsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+{% block bloc1 %}
 
-
-{% include 'G3GsbFraisBundle:ListeFrais:listemois.html.twig' with {'lesfraisforfait':lesfraisforfait,'numannee':numannee,
+{% if AffichFrais == 'O' %}       
+     {% include 'G3GsbFraisBundle:ListeFrais:listefraisforfait.html.twig' with {'lesfraisforfait':lesfraisforfait,'numannee':numannee,
 'nummois':nummois,'libetat':libetat,'montantvalide':montantvalide,'datemodif':datemodif} %}
 
+     {% include 'G3GsbFraisBundle:ListeFrais:listefraishorsforfait.html.twig' with {'lesfraishorsforfait':lesfraishorsforfait,
+'nbjustificatifs':nbjustificatifs} %}
+ {% endif %}
 
+{% if AffichFrais == 'E' %}       
+    ERREUR SELECTION VISITEUR OU DATE.
+{% endif %}
+
+{% endblock %}
+{% endblock %}

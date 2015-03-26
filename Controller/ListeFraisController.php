@@ -34,26 +34,24 @@ class ListeFraisController extends Controller
             $numAnnee =substr( $leMois,0,4);
             $numMois =substr( $leMois,4,2);
             $libEtat = $lesInfosFicheFrais['libEtat'];
-            if ($lesInfosFicheFrais['idEtat']== 'CL' || $lesInfosFicheFrais['idEtat']== 'CR')
-			{
-				$montantValide = $pdo ->majMontantFrais($lesInfosFicheFrais,$lesFraisForfait,$lesFraisHorsForfait); //montant modifié si fiche en CL ou CR
-			}
-			else
-			{
-				$montantValide = $lesInfosFicheFrais['montantValide'];
-			}
+            if ($libEtat== 'CL' || $libEtat== 'CR')
+            {
+                $montantValide = $pdo ->majMontantFrais($lesInfosFicheFrais,$lesFraisForfait,$lesFraisHorsForfait); //montant modifié si fiche en CL ou CR
+            }
+            else
+            {
+                $montantValide = $lesInfosFicheFrais['montantValide'];
+            }
             $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
             $dateModif =  $lesInfosFicheFrais['dateModif'];
-            $dateModif =  dateAnglaisVersFrancais($dateModif);
-            return $this->render('G3GsbFraisBundle:ListeFrais:listemois.html.twig',
+            $dateModif =  dateAnglaisVersFrancais($dateModif);            
+                return $this->render('G3GsbFraisBundle:ListeFrais:listemois.html.twig',
                 array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
                     'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
                         'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'O'));
-            
-        }
-        
+            }
+          
     }
-    
     
 }
 

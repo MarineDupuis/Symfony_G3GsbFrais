@@ -23,12 +23,19 @@
 	  <button type="submit" class="btn btn-primary">Rechercher</button>
       </div>
       </form>
- {% if AffichFrais == 'O' %}
+            
+{% if AffichFrais == 'E' %}       
+     ERREUR SELECTION VISITEUR OU DATE.
+{% endif %}
+
+{% if AffichFrais == 'O' %}       
      {% include 'G3GsbFraisBundle:ListeFrais:listefraisforfait.html.twig' with {'lesfraisforfait':lesfraisforfait,'numannee':numannee,
 'nummois':nummois,'libetat':libetat,'montantvalide':montantvalide,'datemodif':datemodif} %}
 
      {% include 'G3GsbFraisBundle:ListeFrais:listefraishorsforfait.html.twig' with {'lesfraishorsforfait':lesfraishorsforfait,
 'nbjustificatifs':nbjustificatifs} %}
  {% endif %}
+ 
+  
 {% endblock %}
 {% endblock %}

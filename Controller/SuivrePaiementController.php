@@ -50,10 +50,18 @@ class SuivrePaiementController extends Controller
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
         $dateModif =  $lesInfosFicheFrais['dateModif'];
         $dateModif =  dateAnglaisVersFrancais($dateModif);
-        return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
+        if(empty($libEtat)){
+            return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
             array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
                 'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
-                    'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'O'));            
+                    'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'E'));
+        }
+        else{
+            return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
+            array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
+                'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
+                    'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'O')); 
+        }
     }
     
 }
