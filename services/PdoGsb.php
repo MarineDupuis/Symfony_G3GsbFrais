@@ -58,7 +58,7 @@ class PdoGsb{
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
 	public function getInfosVisiteur($login, $mdp){
-                $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur INNER JOIN user ON visiteur.login = user.login
+                $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, user.fonction as fonction from visiteur INNER JOIN user ON visiteur.login = user.login
         where visiteur.login=:log and user.mdp=(md5(:mdp))";
 		$stmt = PdoGsb::$monPdo->prepare($req);
                 $stmt->bindParam(':log', $login);
@@ -78,7 +78,7 @@ class PdoGsb{
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
  	public function getInfosComptable($login, $mdp){
-                $req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable INNER JOIN user ON comptable.login = user.login
+                $req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom, user.fonction as fonction from comptable INNER JOIN user ON comptable.login = user.login
         where comptable.login=:log and user.mdp=(md5(:mdp))";
 		$stmt = PdoGsb::$monPdo->prepare($req);
                 $stmt->bindParam(':log', $login);

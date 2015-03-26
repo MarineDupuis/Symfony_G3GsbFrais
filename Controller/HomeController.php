@@ -31,13 +31,15 @@ class HomeController extends Controller
             $session->set('id',$visiteur['id']);
             $session->set('nom',$visiteur['nom']);
             $session->set('prenom',$visiteur['prenom']);
+            $session->set('fonction',$visiteur['fonction']);
             return $this->render('G3GsbFraisBundle::accueil.html.twig');            
         }
         elseif(is_array($comptable)){
             $session->set('id',$comptable['id']);
             $session->set('nom',$comptable['nom']);
             $session->set('prenom',$comptable['prenom']);
-            return $this->render('G3GsbFraisBundle::accueil_comptable.html.twig'); 
+            $session->set('fonction',$comptable['fonction']);
+            return $this->render('G3GsbFraisBundle::accueil.html.twig'); 
         }
         else{
             return $this->render('G3GsbFraisBundle:Home:connexion.html.twig',array(
