@@ -29,57 +29,7 @@ class SuivrePaiementController extends Controller
 			array('lesFiches'=>$lesFiches,'nom'=>$nom,'prenom'=>$prenom,'idCommercial'=>$idCommercial));
 		}
     }
-	 /*
-	 public function supprimerfraishorsforfaitAction($id){
-                $session= $this->get('request')->getSession();
-                $idVisiteur =  $session->get('id');
-                $mois = getMois(date("d/m/Y"));
-                $numAnnee =substr( $mois,0,4);
-                $numMois =substr( $mois,4,2);
-                $pdo = $this->get('G3_gsb_frais.pdo');
-                if( $pdo->estValideSuppressionFrais($idVisiteur,$mois,$id))
-                            $pdo->supprimerFraisHorsForfait($id);
-                else {
-                     $response = new Response;
-                     $response->setContent("<h2>Page introuvable erreur 404 ");
-                     $response->setStatusCode(404);
-                     return $response;
-                }
-                $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
-                return $this->render('G3GsbFraisBundle:SaisirFrais:saisirtouslesfrais.html.twig',
-                array('lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,'nummois'=>$numMois,
-                    'numannee'=>$numAnnee,'leserreursforfait'=>null,'leserreurshorsforfait'=>null));
-     }
-	 
-	  public function validerfraishorsforfaitAction(){
-                $session= $this->get('request')->getSession();
-                $idVisiteur =  $session->get('id');
-                $mois = getMois(date("d/m/Y"));
-                $numAnnee =substr( $mois,0,4);
-                $numMois =substr( $mois,4,2);
-                $pdo = $this->get('G3_gsb_frais.pdo');
-                $request = $this->get('request');
-                $dateFrais = $request->request->get('dateFrais');
-		$libelle = $request->request->get('libelle');
-                $montant = $request->request->get('montant');
-		$lesErreursHorsForfait = valideInfosFrais($dateFrais,$libelle,$montant);
-              	if (count($lesErreursHorsForfait)==0){
-			$pdo->creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$dateFrais,$montant);
-		}
-                $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
-                return $this->render('G3GsbFraisBundle:SaisirFrais:saisirtouslesfrais.html.twig',
-                array('lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,'nummois'=>$numMois,
-                    'numannee'=>$numAnnee,'leserreursforfait'=>null,'leserreurshorsforfait'=> $lesErreursHorsForfait));
-     
-     }
-    */
     
 }
-
-
-
-
 
 ?>

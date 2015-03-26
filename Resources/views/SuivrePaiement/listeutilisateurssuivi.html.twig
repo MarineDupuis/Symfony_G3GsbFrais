@@ -13,7 +13,7 @@
 					{% set nom = unVisiteur.nom %}
 					{% set idCommercial = unVisiteur.id %}					
 					{% set infosUser = [nom, prenom, idCommercial]|join('+') %}					
-				<option value="{{idCommercial}}">{{nom}} {{prenom}}</option>  
+				<option value="{{infosUser}}">{{nom}} {{prenom}}</option>  
 			{% endfor %}
 		</select>
 		<select id="etat" name="etat" class="form-control">
