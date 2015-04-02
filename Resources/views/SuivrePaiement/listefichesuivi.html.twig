@@ -20,10 +20,10 @@
             {% set montantValide = uneFiche.montantValide %}
             {% set libEtat = uneFiche.libEtat %}	
             <tr>
-                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois,'etat' : etat,'infosUser' : infosUser})}}' title='Detail fiche de frais du {{mois}}'>{{mois}}</a></td>
-                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois,'etat' : etat,'infosUser' : infosUser})}}' title='Detail fiche de frais du {{mois}}'>{{dateModif}}</a></td>
-                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois,'etat' : etat,'infosUser' : infosUser})}}' title='Detail fiche de frais du {{mois}}'>{{montantValide}}</a></td>
-                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois,'etat' : etat,'infosUser' : infosUser})}}' title='Detail fiche de frais du {{mois}}'>{{libEtat}}</a></td>
+                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois})}}' title='Detail fiche de frais du {{mois}}'>{{mois}}</a></td>
+                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois})}}' title='Detail fiche de frais du {{mois}}'>{{dateModif}}</a></td>
+                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois})}}' title='Detail fiche de frais du {{mois}}'>{{montantValide}}</a></td>
+                    <td><a href='{{path('G3_gsb_frais_suivrepaiementdetailfiche',{'id' : idCommercial,'leMois' : mois})}}' title='Detail fiche de frais du {{mois}}'>{{libEtat}}</a></td>
         </tr>
     {% endfor %}
     </tbody>

@@ -17,21 +17,29 @@ class SuivrePaiementController extends Controller
             $lesVisiteurs=$pdo->getLesUtilisateursSuivi();
             $lesCles = array_keys($lesVisiteurs);		
             $prenomSelectionner = $lesCles[0];
+            $infosUser = $session->remove('ficheInfosUser');
+            $etat = $session->remove('ficheEtat');
             return $this->render('G3GsbFraisBundle:SuivrePaiement:listeutilisateurssuivi.html.twig',
             array('lesVisiteurs'=>$lesVisiteurs,'prenomSelectionner'=>$prenomSelectionner));
         }
         else{
-            $infosUser = $_REQUEST['infosUser'];
-            $etat = $_REQUEST['etat'];
+            if($session->get('ficheInfosUser') == ''){
+                $infosUser = $_REQUEST['infosUser'];
+                $etat = $_REQUEST['etat'];             
+            }
+            else{
+                $infosUser = $session->get('ficheInfosUser');
+                $etat = $session->get('ficheEtat');
+            }            
             list($nom,$prenom,$idCommercial) = explode("+", $infosUser);
             $lesFiches=$pdo->getInformationsFichesSuivi($idCommercial,$etat);
+            $session->set('ficheEtat',$etat);
+            $session->set('ficheInfosUser',$infosUser);
             return $this->render('G3GsbFraisBundle:SuivrePaiement:listefichesuivi.html.twig',
-            array('lesFiches'=>$lesFiches,'nom'=>$nom,'prenom'=>$prenom,'idCommercial'=>$idCommercial,'etat'=>$etat,'infosUser'=>$infosUser));
+            array('lesFiches'=>$lesFiches,'nom'=>$nom,'prenom'=>$prenom,'idCommercial'=>$idCommercial));
         }
     }
     public function AfficheDetailAction($id,$leMois){
-        $infosUser = $_REQUEST['infosUser'];
-        $etat = $_REQUEST['etat'];
         $request = $this->get('request');
         $pdo = $this->get('G3_gsb_frais.pdo');
         $lesMois=$pdo->getLesMoisDisponibles($id);
@@ -54,13 +62,13 @@ class SuivrePaiementController extends Controller
         $dateModif =  dateAnglaisVersFrancais($dateModif);
         if(empty($libEtat)){
             return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
-            array('infosUser'=>$infosUser,'etat'=>$etat,'lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
+            array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
                 'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
                     'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'E'));
         }
         else{
             return $this->render('G3GsbFraisBundle:SuivrePaiement:detailfichesuivi.html.twig',
-            array('infosUser'=>$infosUser,'etat'=>$etat,'lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
+            array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
                 'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
                     'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif, 'AffichFrais'=>'O')); 
         }
